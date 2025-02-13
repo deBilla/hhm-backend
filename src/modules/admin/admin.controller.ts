@@ -9,12 +9,12 @@ export class AdminController {
   }
 
   async createAdmin(req: AdminRequest) {
-    const admin = new AdminEntity({
-      fullName: req.full_name,
-    } as AdminEntity);
-    await this.adminRepository.create(admin);
+    return await this.adminRepository.create(AdminEntity.fromRequest(req));
+  }
 
-    return admin;
+  async updateAdmin(req: AdminRequest) {
+    const admin = AdminEntity.fromRequest(req);
+    return await this.adminRepository.update(admin.uuid, admin);
   }
 
   async deleteAdmin(uuid: string) {

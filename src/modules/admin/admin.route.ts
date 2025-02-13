@@ -37,6 +37,31 @@ adminRouter.post("/", validateRequest(AdminSchema), async (req: Request, res: Re
   }
 });
 
+adminRouter.put("/", validateRequest(AdminSchema), async (req: Request, res: Response) => {
+  try {
+    const adminRequest = req.body;
+
+    const payload = await adminController.updateAdmin(
+      adminRequest,
+    );
+
+    return sendSuccessResponse({
+      type: ResponseType.HTTP,
+      statusCode: 200,
+      payload: payload,
+      res,
+    });
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error(error);
+    return sendErrorResponse({
+      type: ResponseType.HTTP,
+      payload: err.message,
+      res,
+    });
+  }
+});
+
 adminRouter.get("/", async (req: Request, res: Response) => {
   try {
     const payload = await adminController.getAll();

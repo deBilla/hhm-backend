@@ -18,20 +18,7 @@ pool.on("error", (err, client) => {
 
 export default () => ({
   postgres: {
-    reviewTable: "reviews",
-    
-    paymentTable: "payments",
-    
-    bookingTable: "bookings",
-    
-    patientTable: "patients",
-    
-    helperVerificationTable: "helper_verifications",
-    
-    helperTable: "helpers",
-    
     adminTable: "admins",
-    
     sampleModuleTable: "sampleModule",
     pool: pool,
   },
