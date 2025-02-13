@@ -1,7 +1,7 @@
-import { IEntity } from "../../../core/entity/entity.interface";
-import { v4 as uuidv4 } from "uuid";
-import { transformToSnakeCase } from "../../../core/entity/entity.tranformer";
-import { AdminRequest } from "../dto/admin-request.dto";
+import {IEntity} from "../../../core/entity/entity.interface";
+import {v4 as uuidv4} from "uuid";
+import {transformToSnakeCase} from "../../../core/entity/entity.tranformer";
+import {AdminRequest} from "../dto/admin-request.dto";
 
 export class AdminEntity implements IEntity {
   uuid!: string;
@@ -10,7 +10,7 @@ export class AdminEntity implements IEntity {
   passwordHash!: string;
   role!: string;
 
-  constructor(data: AdminEntity) {
+  constructor(data: Partial<AdminEntity> = {}) {
     this.uuid = data.uuid || uuidv4();
     this.fullName = data.fullName || "";
     this.email = data.email || "";
@@ -19,15 +19,15 @@ export class AdminEntity implements IEntity {
   }
 
   static fromRequest(req: AdminRequest): AdminEntity {
-    const entity = new AdminEntity({} as AdminEntity);
+    const entity = new AdminEntity();
     const toSnakeCase = (str: string) =>
-      str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
-  
+      str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+
     Object.keys(entity).forEach((key) => {
       const snakeKey = toSnakeCase(key);
       (entity as any)[key] = req[snakeKey as keyof AdminRequest] || (entity as any)[key];
     });
-  
+
     return entity;
   }
 
@@ -40,12 +40,6 @@ export class AdminEntity implements IEntity {
   }
 
   toTransformedObject() {
-    return transformToSnakeCase({
-      uuid: this.uuid,
-      fullName: this.fullName,
-      email: this.email,
-      passwordHash: this.passwordHash,
-      role: this.role,
-    });
+    return transformToSnakeCase({...this});
   }
 }

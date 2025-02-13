@@ -18,6 +18,8 @@ pool.on("error", (err, client) => {
 
 export default () => ({
   postgres: {
+    helperTable: "helpers",
+
     adminTable: "admins",
     sampleModuleTable: "sampleModule",
     pool: pool,

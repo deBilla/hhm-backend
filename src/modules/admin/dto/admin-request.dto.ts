@@ -13,5 +13,5 @@ export const AdminSchema = Joi.object<AdminRequest>({
   email: Joi.string().required(),
   password_hash: Joi.string().required(),
   role: Joi.any(),
-  uuid: Joi.any()
+  uuid: Joi.any(),
 });

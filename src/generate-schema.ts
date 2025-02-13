@@ -4,20 +4,20 @@ import path from "path";
 const schemasPath = path.join(__dirname, "modules");
 
 const typeMapping: Record<string, string> = {
-  string: 'Joi.string().required()',
-  number: 'Joi.number().required()',
-  boolean: 'Joi.boolean().required()',
-  date: 'Joi.string().isoDate().required()',
-  "string?": 'Joi.string().optional()',
-  "number?": 'Joi.number().optional()',
-  "boolean?": 'Joi.boolean().optional()',
+  "string": "Joi.string().required()",
+  "number": "Joi.number().required()",
+  "boolean": "Joi.boolean().required()",
+  "date": "Joi.string().isoDate().required()",
+  "string?": "Joi.string().optional()",
+  "number?": "Joi.number().optional()",
+  "boolean?": "Joi.boolean().optional()",
 };
 
 const generateSchema = (entityName: string, properties: Record<string, string>) => {
   const interfaceName = `${entityName}Request`;
 
-  let schemaFields = Object.entries(properties)
-    .map(([key, type]) => `  ${key}: ${typeMapping[type] || 'Joi.any()'},`)
+  const schemaFields = Object.entries(properties)
+    .map(([key, type]) => `  ${key}: ${typeMapping[type] || "Joi.any()"},`)
     .join("\n");
 
   const schemaContent = `
@@ -40,18 +40,18 @@ const entityDefinitions: Record<string, Record<string, string>> = {
     full_name: "string",
     email: "string",
     password_hash: "string",
-    role: '"SuperAdmin" | "Verifier" | "Support"',
+    role: "\"SuperAdmin\" | \"Verifier\" | \"Support\"",
   },
   Helper: {
     full_name: "string",
     email: "string",
     phone: "string",
     date_of_birth: "date",
-    gender: '"Male" | "Female" | "Other"',
+    gender: "\"Male\" | \"Female\" | \"Other\"",
     address: "string?",
     qualification: "string?",
     experience_years: "number?",
-    verification_status: '"Pending" | "Verified" | "Rejected"',
+    verification_status: "\"Pending\" | \"Verified\" | \"Rejected\"",
     profile_photo_url: "string?",
   },
   Patient: {
@@ -66,13 +66,13 @@ const entityDefinitions: Record<string, Record<string, string>> = {
     patient_id: "string",
     start_time: "date",
     end_time: "date",
-    status: '"Pending" | "Confirmed" | "Completed" | "Cancelled"',
+    status: "\"Pending\" | \"Confirmed\" | \"Completed\" | \"Cancelled\"",
   },
   Payment: {
     booking_id: "string",
     amount: "number",
-    currency: '"LKR"',
-    payment_status: '"Pending" | "Paid" | "Failed" | "Refunded"',
+    currency: "\"LKR\"",
+    payment_status: "\"Pending\" | \"Paid\" | \"Failed\" | \"Refunded\"",
     payment_method: "string?",
   },
   Review: {

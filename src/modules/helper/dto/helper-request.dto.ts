@@ -4,13 +4,13 @@ export interface HelperRequest {
   full_name: string;
   email: string;
   phone: string;
-  date_of_birth: date;
+  date_of_birth: Date;
   gender: "Male" | "Female" | "Other";
-  address: string?;
-  qualification: string?;
-  experience_years: number?;
+  address: string;
+  qualification: string;
+  experience_years: number;
   verification_status: "Pending" | "Verified" | "Rejected";
-  profile_photo_url: string?;
+  profile_photo_url: string;
 }
 
 export const HelperSchema = Joi.object<HelperRequest>({
